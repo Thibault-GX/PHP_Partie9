@@ -1,0 +1,22 @@
+.calendarCell {
+    width: 13%;
+    height: 20%;
+    border: solid;
+    border-color: black;
+    margin: 2px;
+    background-color: #0b515b;
+    color: white;
+}
+.dayLabel {
+    width: 13%;
+    height: 2rem;
+    border: ridge;
+    border-color: green;
+    margin: 2px;
+    background-color: #33c433;
+}
+.emptyCell {
+    width: 13%;
+    height: 20%;
+    margin: 2px;
+}
