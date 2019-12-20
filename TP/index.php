@@ -28,7 +28,8 @@ $monthLength = range(1, $chosenMonthDays);
 ?>
 <!-- Form to select the month and the year you want -->
 <form method="get" action="index.php">
-    <select name="month">
+    <label for="month">Sélectionnez un mois :</label>
+    <select id="month" name="month">
         <option value="1">Janvier</option>
         <option value="2">Février</option>
         <option value="3">Mars</option>
@@ -42,14 +43,15 @@ $monthLength = range(1, $chosenMonthDays);
         <option value="11">Novembre</option>
         <option value="12">Décembre</option>
     </select>
-    <?php
-    // Create a <select> with an option for each year between the current one and the one defined in the variable $earliestYear
-    echo ('<select name="year">');
-    foreach (range($furthestYear, $earliestYear) as $userChoice) {
-        echo ('<option value="' . $userChoice . '">' . $userChoice . '</option>');
-    }
-    echo ('</select>');
-    ?>
+    <label for="year">et une année :</label>
+    <select id="year" name="year">
+        <?php
+        // Create an option for each years between $furthestYear and $earliestYear
+        foreach (range($furthestYear, $earliestYear) as $userChoice) {
+            echo ('<option value="' . $userChoice . '">' . $userChoice . '</option>');
+        }
+        ?>
+    </select>
     <input type="submit" value="C'est parti !"/>
 </form>
 <div class="w-100 p-2"></div>
