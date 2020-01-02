@@ -1,24 +1,24 @@
 .calendarCell {
     width: 13%;
-    height: 20%;
+    height: 4rem;
     border: solid;
     border-color: black;
-    margin: 2px;
+    margin: 1px;
     background-color: #0b515b;
     color: white;
-    font-style: italic;
 }
 .dayLabel {
     width: 13%;
     height: 2rem;
     border: ridge;
     border-color: green;
-    margin: 2px;
+    margin: 1px;
     background-color: #33c433;
     font-weight: bold;
 }
 .emptyCell {
     width: 13%;
-    height: 20%;
-    margin: 2px;
+    height: 4rem;
+    margin: 1px;
+    background-color: #052428;
 }

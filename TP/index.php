@@ -23,6 +23,8 @@ if (isset($_GET['year'])) {
 $chosenMonthDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 // Define a string with the first day of the month, for instance: 'tuesday 1 september 1992'
 $firstDay = strftime('%A %e %B %Y', strtotime('01-' . $month . '-' . $year));
+// Define a string with the last day of the month
+$lastDay = strftime('%A %e %B %Y', strtotime($chosenMonthDays . '-' . $month . '-' . $year));
 // Create an array which begin from 1 and extend to the number of days defined by $chosenMonthDays
 $monthLength = range(1, $chosenMonthDays);
 ?>
@@ -82,9 +84,22 @@ $monthLength = range(1, $chosenMonthDays);
         } elseif (strpos($firstDay, 'dimanche') !== false) {
             echo '<div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div>';
         }
-
         foreach ($monthLength as $monthDays) {
-            echo '<div class="calendarCell text-center">' . $monthDays . '</div>';
+            echo '<div class="calendarCell text-center font-italic font-weight-bold"><p class="ml-5 mt-2">' . $monthDays . '</p></div>';
+        }
+// Create empty cells, regarding the name of the last day detected in $lastDay
+        if (strpos($lastDay, 'samedi') !== false) {
+            echo '<div class="emptyCell text-center"></div>';
+        } elseif (strpos($lastDay, 'vendredi') !== false) {
+            echo '<div class="emptyCell text-center"></div><div class="emptyCell text-center"></div>';
+        } elseif (strpos($lastDay, 'jeudi') !== false) {
+            echo '<div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div>';
+        } elseif (strpos($lastDay, 'mercredi') !== false) {
+            echo '<div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div>';
+        } elseif (strpos($lastDay, 'mardi') !== false) {
+            echo '<div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div>';
+        } elseif (strpos($lastDay, 'lundi') !== false) {
+            echo '<div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div><div class="emptyCell text-center"></div>';
         }
         ?>
     </div>
