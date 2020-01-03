@@ -3,28 +3,28 @@ $partNb = 9;
 $exerciseNb = 'TP';
 include '../header.php';
 setlocale(LC_TIME, 'fr_FR.utf8', 'fra');
-// The earliest year selectable will be 200 years in the past from the current one
-$earliestYear = date('Y') - 200;
-// The furthest year selectable will be 50 years in the futur from the current one
-$furthestYear = date('Y') + 50;
+// The earliest year selectable will be 150 years in the past from the current one
+$earliestYear = date('Y') - 150;
+// The furthest year selectable will be 1 year in the futur from the current one
+$furthestYear = date('Y') + 1;
 // Default month and year will be the current ones
-$month = date('n');
-$year = date('Y');
+$currentMonth = date('n');
+$currentYear = date('Y');
 $months = ['', 'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-// If the month has been specified through the form, $month will become this value
+// If the month has been specified through the form, $currentMonth will become this value
 if (isset($_GET['month'])) {
-    $month = $_GET['month'];
+    $currentMonth = $_GET['month'];
 }
-// If the year has been specified through the form, $year will become this value
+// If the year has been specified through the form, $currentTear will become this value
 if (isset($_GET['year'])) {
-    $year = $_GET['year'];
+    $currentYear = $_GET['year'];
 }
 // Define the number of days in the month chosen by the user
-$chosenMonthDays = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+$chosenMonthDays = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
 // Define a string with the first day of the month, for instance: 'tuesday 1 september 1992'
-$firstDay = strftime('%A %e %B %Y', strtotime('01-' . $month . '-' . $year));
+$firstDay = strftime('%A %e %B %Y', strtotime('01-' . $currentMonth . '-' . $currentYear));
 // Define a string with the last day of the month
-$lastDay = strftime('%A %e %B %Y', strtotime($chosenMonthDays . '-' . $month . '-' . $year));
+$lastDay = strftime('%A %e %B %Y', strtotime($chosenMonthDays . '-' . $currentMonth . '-' . $currentYear));
 // Create an array which begin from 1 and extend to the number of days defined by $chosenMonthDays
 $monthLength = range(1, $chosenMonthDays);
 ?>
@@ -32,32 +32,85 @@ $monthLength = range(1, $chosenMonthDays);
 <form method="get" action="index.php">
     <label for="month">Sélectionnez un mois :</label>
     <select id="month" name="month">
-        <option value="1">Janvier</option>
-        <option value="2">Février</option>
-        <option value="3">Mars</option>
-        <option value="4">Avril</option>
-        <option value="5">Mai</option>
-        <option value="6">Juin</option>
-        <option value="7">Juillet</option>
-        <option value="8">Août</option>
-        <option value="9">Septembre</option>
-        <option value="10">Octobre</option>
-        <option value="11">Novembre</option>
-        <option value="12">Décembre</option>
+        <option value="1" <?php
+        if (isset($_GET['month']) && ($currentMonth == 1)) {
+            echo 'selected';
+        }
+        ?>>Janvier</option>
+        <option value="2" <?php
+        if (isset($_GET['month']) && ($currentMonth == 2)) {
+            echo 'selected';
+        }
+        ?>>Février</option>
+        <option value="3" <?php
+                if (isset($_GET['month']) && ($currentMonth == 3)) {
+                    echo 'selected';
+                }
+                ?>>Mars</option>
+        <option value="4" <?php
+        if (isset($_GET['month']) && ($currentMonth == 4)) {
+            echo 'selected';
+        }
+                ?>>Avril</option>
+        <option value="5" <?php
+        if (isset($_GET['month']) && ($currentMonth == 5)) {
+            echo 'selected';
+        }
+        ?>>Mai</option>
+        <option value="6" <?php
+        if (isset($_GET['month']) && ($currentMonth == 6)) {
+            echo 'selected';
+        }
+        ?>>Juin</option>
+        <option value="7" <?php
+                if (isset($_GET['month']) && ($currentMonth == 7)) {
+                    echo 'selected';
+                }
+                ?>>Juillet</option>
+        <option value="8" <?php
+        if (isset($_GET['month']) && ($currentMonth == 8)) {
+            echo 'selected';
+        }
+                ?>>Août</option>
+        <option value="9" <?php
+        if (isset($_GET['month']) && ($currentMonth == 9)) {
+            echo 'selected';
+        }
+        ?>>Septembre</option>
+        <option value="10" <?php
+        if (isset($_GET['month']) && ($currentMonth == 10)) {
+            echo 'selected';
+        }
+        ?>>Octobre</option>
+        <option value="11" <?php
+        if (isset($_GET['month']) && ($currentMonth == 11)) {
+            echo 'selected';
+        }
+        ?>>Novembre</option>
+        <option value="12" <?php
+        if (isset($_GET['month']) && ($currentMonth == 12)) {
+            echo 'selected';
+        }
+        ?>>Décembre</option>
     </select>
     <label for="year">et une année :</label>
     <select id="year" name="year">
-        <?php
-        // Create an option for each years between $furthestYear and $earliestYear
-        foreach (range($furthestYear, $earliestYear) as $userChoice) {
-            echo ('<option value="' . $userChoice . '">' . $userChoice . '</option>');
-        }
-        ?>
+<?php
+// Create an option for each years between $furthestYear and $earliestYear
+foreach (range($furthestYear, $earliestYear) as $userChoices) {
+    // if the user has already sent at least one request, his/her last one will be set as a preselected choice for the year
+    if (isset($_GET['year']) && ($currentYear == $userChoices)) {
+        echo ('<option value="' . $userChoices . '" selected>' . $userChoices . '</option>');
+    } else {
+        echo ('<option value="' . $userChoices . '">' . $userChoices . '</option>');
+    }
+}
+?>
     </select>
-    <input type="submit" value="C'est parti !"/>
+    <input type="submit" value="C'est parti, Marty !"/>
 </form>
 <div class="w-100 p-2"></div>
-<h2><?php echo ($months[$month] . ' ' . $year); ?></h2>
+<h2><?php echo ($months[$currentMonth] . ' ' . $currentYear); ?></h2>
 <div class="container-fluid rounded bg-secondary flex-column justify-content-around">
     <div class="ml-5 mr-1 mt-3 row">
         <div class="dayLabel text-center"><p>Lundi</p></div>
